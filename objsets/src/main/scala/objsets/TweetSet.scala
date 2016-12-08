@@ -155,22 +155,22 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     }
     
     def mostRetweeted: Tweet = {
-      if (this.left.isEmpty && this.right.isEmpty) this.elem
-      else if (this.left.isEmpty) if (this.elem.retweets > this.right.mostRetweeted.retweets) this.elem else this.right.mostRetweeted
-      else if (this.right.isEmpty) if (this.elem.retweets > this.left.mostRetweeted.retweets) this.elem else this.left.mostRetweeted
-      else findMax(elem, left.mostRetweeted, right.mostRetweeted)
+      if (left.isEmpty && right.isEmpty) this.elem
+      else if (left.isEmpty) findMax(elem, right.mostRetweeted)
+      else if (right.isEmpty) findMax(elem, left.mostRetweeted)
+      else findMax(elem, findMax(left.mostRetweeted, right.mostRetweeted))
     }
     
     def isEmpty: Boolean = false
     
-    def findMax(x: Tweet, y: Tweet, z: Tweet) = {
-      if (x.retweets > y.retweets && x.retweets > z.retweets) x
-      else if (y.retweets > x.retweets && y.retweets > z.retweets) y
-      else z
+    def findMax(x: Tweet, y: Tweet) = {
+      if (x.retweets > y.retweets) x
+      else y
     }
     
     def descendingByRetweet: TweetList = {
-        new Cons(mostRetweeted, remove(mostRetweeted).descendingByRetweet)
+        val mostTweeted = mostRetweeted;
+        new Cons(mostTweeted, remove(mostTweeted).descendingByRetweet)
 //      if (this.remove(this.mostRetweeted).isEmpty) new Cons(this.mostRetweeted, Nil)
 //      else new Cons(this.mostRetweeted, new Cons(this.remove(this.mostRetweeted).mostRetweeted, Nil))
     }
