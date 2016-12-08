@@ -3,23 +3,23 @@
 [0m[[0minfo[0m] [0m[32m- chars of a larger tree[0m[0m
 [0m[[0minfo[0m] [0m[32m- string2chars("hello, world")[0m[0m
 [0m[[0minfo[0m] [0m[32m- times(List('h', 'e', 'l', 'l', 'o'))[0m[0m
+[0m[[0minfo[0m] [0m[32m- times(aaaaabbbbbccccceeeee)[0m[0m
 [0m[[0minfo[0m] [0m[32m- makeOrderedLeafList for some frequency table[0m[0m
 [0m[[0minfo[0m] [0m[32m- singleton list:List(Leaf('e', 1)[0m[0m
 [0m[[0minfo[0m] [0m[32m- not a singleton list:List(Leaf('e', 1), Leaf('t', 2), Leaf('x', 4))[0m[0m
 [0m[[0minfo[0m] [0m[32m- combine of some leaf list[0m[0m
+[0m[[0minfo[0m] [0m[31m- combine of some leaf list with duplicates *** FAILED ***[0m[0m
+[0m[[0minfo[0m] [0m[31m  List(Fork(Leaf(e,1),Leaf(t,2),List(e, t),3), Leaf(x,4), Leaf(e,5), Leaf(x,1), Leaf(t,10)) did not equal List(Fork(Leaf(x,4),Leaf(e,5),List(x, e),9), Leaf(t,10)) (HuffmanSuite.scala:68)[0m[0m
 [0m[[0minfo[0m] [0m[32m- combine of some fork list[0m[0m
 [0m[[0minfo[0m] [0m[32m- combine only two elements[0m[0m
 [0m[[0minfo[0m] [0m[32m- combine of some fork and leaf list[0m[0m
-[0m[[0minfo[0m] [0m[31m- decode and encode a very short text should be identity *** FAILED ***[0m[0m
-[0m[[0minfo[0m] [0m[31m  scala.NotImplementedError: an implementation is missing[0m[0m
-[0m[[0minfo[0m] [0m[31m  at scala.Predef$.$qmark$qmark$qmark(Predef.scala:225)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at patmat.Huffman$.encode(Huffman.scala:271)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at patmat.HuffmanSuite$$anonfun$12$$anon$3.<init>(HuffmanSuite.scala:94)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at patmat.HuffmanSuite$$anonfun$12.apply$mcV$sp(HuffmanSuite.scala:93)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at patmat.HuffmanSuite$$anonfun$12.apply(HuffmanSuite.scala:93)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at patmat.HuffmanSuite$$anonfun$12.apply(HuffmanSuite.scala:93)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer$$anonfun$apply$1.apply$mcV$sp(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$class.outcomeOf(OutcomeOf.scala:85)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.OutcomeOf$.outcomeOf(OutcomeOf.scala:104)[0m[0m
-[0m[[0minfo[0m] [0m[31m  at org.scalatest.Transformer.apply(Transformer.scala:22)[0m[0m
-[0m[[0minfo[0m] [0m[31m  ...[0m[0m
+[0m[[0minfo[0m] [0m[32m- createCodeTree: hello[0m[0m
+[0m[[0minfo[0m] [0m[32m- decode: hello[0m[0m
+[0m[[0minfo[0m] [0m[32m- french secret[0m[0m
+[0m[[0minfo[0m] [0m[32m- encode: hello[0m[0m
+[0m[[0minfo[0m] [0m[32m- decode and encode a very short text should be identity[0m[0m
+[0m[[0minfo[0m] [0m[32m- decode and encode french secret[0m[0m
+[0m[[0minfo[0m] [0m[32m- codeBits[0m[0m
+[0m[[0minfo[0m] [0m[32m- mergeCodeTables[0m[0m
+[0m[[0minfo[0m] [0m[32m- convert to codeTable[0m[0m
+[0m[[0minfo[0m] [0m[32m- quickDecode[0m[0m

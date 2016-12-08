@@ -38,6 +38,10 @@ class HuffmanSuite extends FunSuite {
     assert(times(string2Chars("hello")) === List(('o',1), ('l',2), ('e',1), ('h',1)))
   }
   
+  test("times(aaaaabbbbbccccceeeee)") {
+    assert(times(string2Chars("aaaaabbbbbccccceeeee")) === List(('e',5), ('c',5), ('b',5), ('a',5)))
+  }
+  
 
   test("makeOrderedLeafList for some frequency table") {
     assert(makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3))) === List(Leaf('e',1), Leaf('t',2), Leaf('x',3)))
@@ -59,6 +63,11 @@ class HuffmanSuite extends FunSuite {
     assert(combine(leaflist) === List(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4)))
   }
   
+  test("combine of some leaf list with duplicates") {
+    val leaflist = List(Leaf('e', 1), Leaf('t', 2), Leaf('x', 4), Leaf('e', 5), Leaf('x', 1), Leaf('t', 10))
+    assert(combine(leaflist) === List(Fork(Leaf('x',4),Leaf('e',5),List('x', 'e'),9), Leaf('t',10)))
+  }
+  
   test("combine of some fork list") {
     val leaflist = List(Fork(Leaf('a',2), Leaf('b',3), List('a','b'), 5), Fork(Leaf('c',1), Leaf('d',5), List('c','d'), 6), Fork(Leaf('e',6), Leaf('f',7), List('e','f'), 13))
     assert(combine(leaflist) === List(
@@ -73,7 +82,7 @@ class HuffmanSuite extends FunSuite {
   
   test("combine only two elements") {
     val leaflist = List(Leaf('e', 1), Leaf('t', 2))
-    assert(combine(leaflist) === List(Leaf('e', 1), Leaf('t', 2)))
+    assert(combine(leaflist) === List(Fork(Leaf('e', 1), Leaf('t', 2), List('e', 't'), 3)))
   }
   
   test("combine of some fork and leaf list") {
@@ -87,12 +96,65 @@ class HuffmanSuite extends FunSuite {
         Fork(Leaf('e',6), Leaf('f',7), List('e','f'), 13)
     ))
   }
+  
+  test("createCodeTree: hello") {
+    val codeTree = createCodeTree(string2Chars("hello"))
+    assert(List('o', 'e', 'h', 'l') === chars(codeTree))
+    assert(5 == weight(codeTree))
+  }
+  
+  test("decode: hello") {
+    val codeTree = createCodeTree(string2Chars("hello"))
+    System.out.println(print(codeTree))
+    val chars = decode(codeTree, List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0))
+    assert(chars === List('h', 'e', 'l', 'l', 'o'))
+  }
+  
+  test("french secret") {
+    System.out.println(Huffman.decodedSecret)
+  }
 
-
+  test("encode: hello") {
+    val codeTree = createCodeTree(string2Chars("hello"))
+    assert(List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0) === encode(codeTree)(string2Chars("hello")))
+  }
+  
   test("decode and encode a very short text should be identity") {
     new TestTrees {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
     }
   }
-
+  
+  test("decode and encode french secret") {
+    new TestTrees {
+      assert(decode(Huffman.frenchCode, encode(Huffman.frenchCode)("huffmanestcool".toList)) === "huffmanestcool".toList)
+    }
+  }
+  
+  test("codeBits") {
+    val helloCodeTable = List(('h', List(1, 0)), ('e', List(0, 1)), ('l', List(1, 1)), ('o', List(0, 0)))
+    assert(List(1, 0) === codeBits(helloCodeTable)('h'))
+    assert(List(0, 1) === codeBits(helloCodeTable)('e'))
+    assert(List(1, 1) === codeBits(helloCodeTable)('l'))
+    assert(List(0, 0) === codeBits(helloCodeTable)('o'))
+  }
+  
+  test("mergeCodeTables") {
+    val helloCodeTable = List(('o', List(0, 0)), ('e', List(0, 1)), ('h', List(1, 0)), ('l', List(1, 1)))
+    val leftTree = List(('o', List(0)), ('e', List(1)))
+    val rightTree = List(('h', List(0)), ('l', List(1)))
+    assert(helloCodeTable === mergeCodeTables(leftTree, rightTree))
+  }
+  
+  test("convert to codeTable") {
+    val helloCodeTable = List(('o', List(0, 0)), ('e', List(0, 1)), ('h', List(1, 0)), ('l', List(1, 1)))
+    assert(helloCodeTable === convert(createCodeTree(string2Chars("hello"))))
+  }
+  
+  test("quickDecode") {
+    val codeTree = createCodeTree(string2Chars("hello"))
+    val encoded = encode(codeTree)("hello".toList)
+    val quickEncoded = quickEncode(codeTree)("hello".toList)
+    assert(encoded == quickEncoded)
+  }
 }
