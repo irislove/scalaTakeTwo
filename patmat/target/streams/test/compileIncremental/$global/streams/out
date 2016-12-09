@@ -2,32 +2,14 @@
 [0m[[0mdebug[0m] [0mInitial source changes: [0m
 [0m[[0mdebug[0m] [0m	removed:Set()[0m
 [0m[[0mdebug[0m] [0m	added: Set()[0m
-[0m[[0mdebug[0m] [0m	modified: Set(/space/ywang/Downloads/scalaTakeTwo/patmat/src/test/scala/patmat/HuffmanSuite.scala)[0m
+[0m[[0mdebug[0m] [0m	modified: Set()[0m
 [0m[[0mdebug[0m] [0mInvalidated products: Set()[0m
 [0m[[0mdebug[0m] [0mExternal API changes: API Changes: Set()[0m
 [0m[[0mdebug[0m] [0mModified binary dependencies: Set()[0m
-[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set(/space/ywang/Downloads/scalaTakeTwo/patmat/src/test/scala/patmat/HuffmanSuite.scala)[0m
+[0m[[0mdebug[0m] [0mInitial directly invalidated sources: Set()[0m
 [0m[[0mdebug[0m] [0m[0m
 [0m[[0mdebug[0m] [0mSources indirectly invalidated by:[0m
 [0m[[0mdebug[0m] [0m	product: Set()[0m
 [0m[[0mdebug[0m] [0m	binary dep: Set()[0m
 [0m[[0mdebug[0m] [0m	external source: Set()[0m
-[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set(/space/ywang/Downloads/scalaTakeTwo/patmat/src/test/scala/patmat/HuffmanSuite.scala)[0m
-[0m[[0mdebug[0m] [0mRecompiling all 1 sources: invalidated sources (1) exceeded 50.0% of all sources[0m
-[0m[[0minfo[0m] [0mCompiling 1 Scala source to /space/ywang/Downloads/scalaTakeTwo/patmat/target/scala-2.11/test-classes...[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.7[0m
-[0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.7[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 5d8283ef, interfacing (CompilerInterface) with Scala compiler version 2.11.7[0m
-[0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
-[0m[[0mdebug[0m] [0m	-deprecation[0m
-[0m[[0mdebug[0m] [0m	-bootclasspath[0m
-[0m[[0mdebug[0m] [0m	/space/ywang/Downloads/jdk1.8.0_66/jre/lib/resources.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/rt.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/sunrsasign.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/jsse.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/jce.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/charsets.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/lib/jfr.jar:/space/ywang/Downloads/jdk1.8.0_66/jre/classes:/home/ywang/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.7.jar[0m
-[0m[[0mdebug[0m] [0m	-classpath[0m
-[0m[[0mdebug[0m] [0m	/space/ywang/Downloads/scalaTakeTwo/patmat/target/scala-2.11/test-classes:/space/ywang/Downloads/scalaTakeTwo/patmat/target/scala-2.11/classes:/home/ywang/.ivy2/cache/org.scalatest/scalatest_2.11/bundles/scalatest_2.11-2.2.4.jar:/home/ywang/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.2.jar:/home/ywang/.ivy2/cache/org.scala-lang.modules/scala-xml_2.11/bundles/scala-xml_2.11-1.0.2.jar:/home/ywang/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.4.jar:/home/ywang/.ivy2/cache/junit/junit/jars/junit-4.10.jar:/home/ywang/.ivy2/cache/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.1.jar[0m
-[0m[[0mdebug[0m] [0mScala compilation took 1.676536882 s[0m
-[0m[[0mdebug[0m] [0mNew invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mInitial set of included nodes: Set()[0m
-[0m[[0mdebug[0m] [0mPreviously invalidated, but (transitively) depend on new invalidations:[0m
-[0m[[0mdebug[0m] [0m	Set()[0m
-[0m[[0mdebug[0m] [0mAll newly invalidated sources after taking into account (previously) recompiled sources:Set()[0m
+[0m[[0mdebug[0m] [0mAll initially invalidated sources: Set()[0m

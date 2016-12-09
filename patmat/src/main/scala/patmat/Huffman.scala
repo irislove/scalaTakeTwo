@@ -40,7 +40,7 @@ object Huffman {
     }
   
   def makeCodeTree(left: CodeTree, right: CodeTree) =
-    Fork(left, right, chars(left) ::: chars(right), weight(left) + weight(right))
+    Fork(left, right, (chars(left) ::: chars(right)).distinct, weight(left) + weight(right))
 
 
 
@@ -90,7 +90,7 @@ object Huffman {
          } else {
            val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
            
-           pair :: (result.dropWhile(pair => pair._1 == chars.head))
+           pair :: (result.filter(pair => pair._1 != chars.head))
          }
        } 
        case x::xs => {
@@ -100,7 +100,7 @@ object Huffman {
          } else {
            val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
            
-           iter(chars.tail, pair :: (result.dropWhile(pair => pair._1 == chars.head)))
+           iter(chars.tail, pair :: (result.filter(pair => pair._1 != chars.head)))
          }
        }
      }
@@ -125,7 +125,7 @@ object Huffman {
     def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = {
       def insert(leaf: Leaf, list: List[Leaf]): List[Leaf] = {
         if (list.isEmpty) leaf::list
-        else if (chars(list.head) == chars(leaf)) if (list.head.weight > leaf.weight) list else leaf::list.tail
+//        else if (chars(list.head) == chars(leaf)) if (list.head.weight > leaf.weight) list else leaf::list.tail
         else if (list.head.weight > leaf.weight) leaf::list
         else if (list.length == 1) list.head::leaf::Nil
         else list.head::insert(leaf, list.tail)
@@ -181,7 +181,7 @@ object Huffman {
           case x::xs => {
           def insert(node: CodeTree, list: List[CodeTree]): List[CodeTree] =  {
               if (list.isEmpty) node::list
-              else if (chars(list.head) == chars(node)) if (weight(list.head) >= weight(node)) list else node::list.tail
+//              else if (chars(list.head) == chars(node)) if (weight(list.head) >= weight(node)) list else node::list.tail
               else if (weight(list.head) > weight(node)) node::list
 	          else if (list.length == 1) list.head::node::Nil
 	          else list.head::insert(node, list.tail)

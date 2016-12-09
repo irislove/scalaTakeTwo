@@ -35,16 +35,20 @@ class HuffmanSuite extends FunSuite {
 
   
   test("times(List('h', 'e', 'l', 'l', 'o'))") {
-    assert(times(string2Chars("hello")) === List(('o',1), ('l',2), ('e',1), ('h',1)))
+    assert(times(string2Chars("hello")).diff(List(('o',1), ('l',2), ('e',1), ('h',1))).isEmpty)
   }
   
   test("times(aaaaabbbbbccccceeeee)") {
-    assert(times(string2Chars("aaaaabbbbbccccceeeee")) === List(('e',5), ('c',5), ('b',5), ('a',5)))
+    assert(List(('e',5), ('c',5), ('b',5), ('a',5)).diff(times(string2Chars("aaaaabbbbbccccceeeee"))).isEmpty)
   }
   
 
   test("makeOrderedLeafList for some frequency table") {
     assert(makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3))) === List(Leaf('e',1), Leaf('t',2), Leaf('x',3)))
+  }
+  
+  test("makeOrderedLeafList for some larger frequency table") {
+    assert(makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3), ('a', 2), ('e', 6), ('x', 10), ('a', 2), ('f', 1), ('z', 0))) === List(Leaf('z',0), Leaf('e',1), Leaf('f',1), Leaf('t',2), Leaf('a',2), Leaf('a',2), Leaf('x',3), Leaf('e',6), Leaf('x',10)))
   }
 
   test("singleton list:List(Leaf('e', 1)") {
@@ -64,8 +68,8 @@ class HuffmanSuite extends FunSuite {
   }
   
   test("combine of some leaf list with duplicates") {
-    val leaflist = List(Leaf('e', 1), Leaf('t', 2), Leaf('x', 4), Leaf('e', 5), Leaf('x', 1), Leaf('t', 10))
-    assert(combine(leaflist) === List(Fork(Leaf('x',4),Leaf('e',5),List('x', 'e'),9), Leaf('t',10)))
+    val leaflist = List(Leaf('e', 2), Leaf('t', 3), Leaf('x', 4), Leaf('e', 6), Leaf('x', 9), Leaf('t', 10))
+    assert(combine(leaflist) === List(Leaf('x', 4), Fork(Leaf('e',2),Leaf('t',3),List('e', 't'),5), Leaf('e', 6), Leaf('x', 9), Leaf('t',10)))
   }
   
   test("combine of some fork list") {
@@ -99,8 +103,19 @@ class HuffmanSuite extends FunSuite {
   
   test("createCodeTree: hello") {
     val codeTree = createCodeTree(string2Chars("hello"))
-    assert(List('o', 'e', 'h', 'l') === chars(codeTree))
+    assert(List('o', 'e', 'h', 'l').diff(chars(codeTree)).isEmpty)
     assert(5 == weight(codeTree))
+  }
+  
+  test("times: dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd") {
+    val freqs = times(string2Chars("dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd"))
+    assert(List(('c',16), ('d',15), ('a',5), ('b',8)).diff(freqs).isEmpty)
+  }
+  
+  test("createCodeTree: dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd") {
+    val codeTree = createCodeTree(string2Chars("dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd"))
+    assert(List('c', 'd', 'a', 'b').diff(chars(codeTree)).isEmpty)
+    assert(44 == weight(codeTree))
   }
   
   test("decode: hello") {
