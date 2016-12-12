@@ -16,12 +16,9 @@
 [0m[[0minfo[0m] [0m[32m- createCodeTree: hello[0m[0m
 [0m[[0minfo[0m] [0m[32m- times: dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd[0m[0m
 [0m[[0minfo[0m] [0m[32m- createCodeTree: dcccadddbccbdddcccbaccdbaccddbbccddbaccbaddd[0m[0m
-[0m[[0minfo[0m] [0m[32m- decode: hello[0m[0m
 [0m[[0minfo[0m] [0m[32m- french secret[0m[0m
-[0m[[0minfo[0m] [0m[32m- encode: hello[0m[0m
 [0m[[0minfo[0m] [0m[32m- decode and encode a very short text should be identity[0m[0m
 [0m[[0minfo[0m] [0m[32m- decode and encode french secret[0m[0m
 [0m[[0minfo[0m] [0m[32m- codeBits[0m[0m
 [0m[[0minfo[0m] [0m[32m- mergeCodeTables[0m[0m
-[0m[[0minfo[0m] [0m[32m- convert to codeTable[0m[0m
 [0m[[0minfo[0m] [0m[32m- quickDecode[0m[0m

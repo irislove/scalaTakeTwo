@@ -118,21 +118,21 @@ class HuffmanSuite extends FunSuite {
     assert(44 == weight(codeTree))
   }
   
-  test("decode: hello") {
-    val codeTree = createCodeTree(string2Chars("hello"))
-    System.out.println(print(codeTree))
-    val chars = decode(codeTree, List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0))
-    assert(chars === List('h', 'e', 'l', 'l', 'o'))
-  }
+//  test("decode: hello") {
+//    val codeTree = createCodeTree(string2Chars("hello"))
+//    System.out.println(print(codeTree))
+//    val chars = decode(codeTree, List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0))
+//    assert(chars === List('h', 'e', 'l', 'l', 'o'))
+//  }
   
   test("french secret") {
     System.out.println(Huffman.decodedSecret)
   }
 
-  test("encode: hello") {
-    val codeTree = createCodeTree(string2Chars("hello"))
-    assert(List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0) === encode(codeTree)(string2Chars("hello")))
-  }
+//  test("encode: hello") {
+//    val codeTree = createCodeTree(string2Chars("hello"))
+//    assert(List(1, 0, 0, 1, 1, 1, 1, 1, 0, 0) === encode(codeTree)(string2Chars("hello")))
+//  }
   
   test("decode and encode a very short text should be identity") {
     new TestTrees {
@@ -161,10 +161,10 @@ class HuffmanSuite extends FunSuite {
     assert(helloCodeTable === mergeCodeTables(leftTree, rightTree))
   }
   
-  test("convert to codeTable") {
-    val helloCodeTable = List(('o', List(0, 0)), ('e', List(0, 1)), ('h', List(1, 0)), ('l', List(1, 1)))
-    assert(helloCodeTable === convert(createCodeTree(string2Chars("hello"))))
-  }
+//  test("convert to codeTable") {
+//    val helloCodeTable = List(('o', List(0, 0)), ('e', List(0, 1)), ('h', List(1, 0)), ('l', List(1, 1)))
+//    assert(helloCodeTable === convert(createCodeTree(string2Chars("hello"))))
+//  }
   
   test("quickDecode") {
     val codeTree = createCodeTree(string2Chars("hello"))

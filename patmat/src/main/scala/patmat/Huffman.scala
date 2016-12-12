@@ -80,33 +80,40 @@ object Huffman {
    *       println("integer is  : "+ theInt)
    *   }
    */
-    def times(chars: List[Char]): List[(Char, Int)] = {
-     def iter(chars: List[Char], result: List[(Char, Int)]): List[(Char, Int)] = chars match {
-       case Nil => result
-       case x::Nil => {
-         if (result.filter(pair => pair._1 == chars.head).isEmpty) {
-           val pair: (Char, Int) = (chars.head, 1)
-           pair :: result
-         } else {
-           val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
-           
-           pair :: (result.filter(pair => pair._1 != chars.head))
-         }
-       } 
+    def times(chars: List[Char]): List[(Char, Int)] = chars match {
+       case Nil => Nil
        case x::xs => {
-         if (result.filter(pair => pair._1 == chars.head).isEmpty) {
-           val pair: (Char, Int) = (chars.head, 1)
-           iter(chars.tail, pair :: result)
-         } else {
-           val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
-           
-           iter(chars.tail, pair :: (result.filter(pair => pair._1 != chars.head)))
-         }
+         val (first, last) = chars.partition(y => y == x)
+         times(last) :+ (x, first.length)
        }
-     }
-     
-     iter(chars, List.empty)
+//     def iter(chars: List[Char], result: List[(Char, Int)]): List[(Char, Int)] = chars match {
+//       case Nil => result
+//       case x::Nil => {
+//         if (result.filter(pair => pair._1 == chars.head).isEmpty) {
+//           val pair: (Char, Int) = (chars.head, 1)
+//           pair :: result
+//         } else {
+//           val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
+//           
+//           pair :: (result.filter(pair => pair._1 != chars.head))
+//         }
+//       } 
+//       case x::xs => {
+//         if (result.filter(pair => pair._1 == chars.head).isEmpty) {
+//           val pair: (Char, Int) = (chars.head, 1)
+//           iter(chars.tail, pair :: result)
+//         } else {
+//           val pair: (Char, Int) = (chars.head, result.filter(pair => pair._1 == chars.head).head._2 + 1)
+//           
+//           iter(chars.tail, pair :: (result.filter(pair => pair._1 != chars.head)))
+//         }
+//       }
+//     }
+//     
+//     iter(chars, List.empty)
   }
+  
+  def freqLe(x: (Char, Int), y: (Char, Int)): Boolean = x._2 <= y._2
   
   /**
    * Returns a list of `Leaf` nodes for a given frequency table `freqs`.
@@ -122,26 +129,48 @@ object Huffman {
 //        else list.head::insert(node, list.tail)
 //      }
   
+       def merge[T](xs: List[T], ys: List[T])(implicit le: (T, T) => Boolean): List[T] = (xs, ys) match {
+          case (Nil, ys) => ys
+          case (xs, Nil) => xs
+          case (x::xs1, y::ys1) => {
+            if (le(x, y)) 
+              x :: merge(xs1, ys)
+            else
+              y :: merge(xs, ys1)
+          }
+        }
+  
+    def msort[T](freqs: List[T])(implicit le: (T, T) => Boolean): List[T] = freqs match {
+      case Nil => freqs
+      case x::Nil => freqs
+      case x::xs => {
+        val n = freqs.length/2
+        val (left, right) = freqs splitAt n
+	    merge(msort(left), msort(right))
+      }
+    }
+  
     def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = {
-      def insert(leaf: Leaf, list: List[Leaf]): List[Leaf] = {
-        if (list.isEmpty) leaf::list
-//        else if (chars(list.head) == chars(leaf)) if (list.head.weight > leaf.weight) list else leaf::list.tail
-        else if (list.head.weight > leaf.weight) leaf::list
-        else if (list.length == 1) list.head::leaf::Nil
-        else list.head::insert(leaf, list.tail)
-      }
-      
-      def iter(freqs: List[(Char, Int)], result: List[Leaf]): List[Leaf] = freqs match {
-        case Nil => result
-        case x::Nil => {
-          insert(new Leaf(freqs.head._1, freqs.head._2), result)
-        }
-        case x::xs => {
-          iter(freqs.tail, insert(new Leaf(freqs.head._1, freqs.head._2), result))
-        }
-      }
-      
-      iter(freqs, List.empty)
+      msort(freqs)(freqLe) map (x => new Leaf(x._1, x._2))
+//      def insert(leaf: Leaf, list: List[Leaf]): List[Leaf] = {
+//        if (list.isEmpty) leaf::list
+////        else if (chars(list.head) == chars(leaf)) if (list.head.weight > leaf.weight) list else leaf::list.tail
+//        else if (list.head.weight > leaf.weight) leaf::list
+//        else if (list.length == 1) list.head::leaf::Nil
+//        else list.head::insert(leaf, list.tail)
+//      }
+//      
+//      def iter(freqs: List[(Char, Int)], result: List[Leaf]): List[Leaf] = freqs match {
+//        case Nil => result
+//        case x::Nil => {
+//          insert(new Leaf(freqs.head._1, freqs.head._2), result)
+//        }
+//        case x::xs => {
+//          iter(freqs.tail, insert(new Leaf(freqs.head._1, freqs.head._2), result))
+//        }
+//      }
+//      
+//      iter(freqs, List.empty)
     }
   
   /**
@@ -165,32 +194,40 @@ object Huffman {
    * If `trees` is a list of less than two elements, that list should be returned
    * unchanged.
    */
+    
+    def codeTreeLe(x: CodeTree, y: CodeTree): Boolean = weight(x) <= weight(y)
+    
     def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
       case Nil => Nil
       case x::Nil => trees
       case x::xs => {
-        xs match {
-          case Nil => Nil
-          case x::Nil => {
-            if (weight(trees.head) > weight(trees.tail.head)) {
-              makeCodeTree(trees.tail.head, trees.head) :: Nil
-            } else {
-              makeCodeTree(trees.head, trees.tail.head) :: Nil
-            }
-          }
-          case x::xs => {
-          def insert(node: CodeTree, list: List[CodeTree]): List[CodeTree] =  {
-              if (list.isEmpty) node::list
-//              else if (chars(list.head) == chars(node)) if (weight(list.head) >= weight(node)) list else node::list.tail
-              else if (weight(list.head) > weight(node)) node::list
-	          else if (list.length == 1) list.head::node::Nil
-	          else list.head::insert(node, list.tail)
-	      }
-          
-           insert(makeCodeTree(trees.head, trees.tail.head), trees.tail.tail)
-          }
-        }
+        merge(List(makeCodeTree(x, xs.head)), xs.tail)(codeTreeLe)
       }
+//      case Nil => Nil
+//      case x::Nil => trees
+//      case x::xs => {
+//        xs match {
+//          case Nil => Nil
+//          case x::Nil => {
+//            if (weight(trees.head) > weight(trees.tail.head)) {
+//              makeCodeTree(trees.tail.head, trees.head) :: Nil
+//            } else {
+//              makeCodeTree(trees.head, trees.tail.head) :: Nil
+//            }
+//          }
+//          case x::xs => {
+//          def insert(node: CodeTree, list: List[CodeTree]): List[CodeTree] =  {
+//              if (list.isEmpty) node::list
+////              else if (chars(list.head) == chars(node)) if (weight(list.head) >= weight(node)) list else node::list.tail
+//              else if (weight(list.head) > weight(node)) node::list
+//	          else if (list.length == 1) list.head::node::Nil
+//	          else list.head::insert(node, list.tail)
+//	      }
+//          
+//           insert(makeCodeTree(trees.head, trees.tail.head), trees.tail.tail)
+//          }
+//        }
+//      }
     }
   
   /**
